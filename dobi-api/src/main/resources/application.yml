@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: local
+  pid:
+    file: dobi-api.pid
+
+server:
+  port: 5000
+
+kakao:
+  url:
+    auth: https://kauth.kakao.com/
+    api: https://kapi.kakao.com/
+
+
+jwt:
+  secret: luke-local
+  expiration: 1480000
+  header: Authorization
