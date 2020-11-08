@@ -1,4 +1,4 @@
-package com.rufree.dobi.api.client.kakao.dto.request
+package com.rufree.dobi.common.client.kakao.dto.request
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.databind.annotation.JsonNaming

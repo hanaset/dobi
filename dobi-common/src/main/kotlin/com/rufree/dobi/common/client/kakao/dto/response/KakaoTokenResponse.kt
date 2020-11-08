@@ -1,4 +1,4 @@
-package com.rufree.dobi.api.client.kakao.dto.response
+package com.rufree.dobi.common.client.kakao.dto.response
 
 import com.google.gson.annotations.SerializedName
 
