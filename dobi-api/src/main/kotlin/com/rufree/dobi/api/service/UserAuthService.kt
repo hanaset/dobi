@@ -1,6 +1,6 @@
 package com.rufree.dobi.api.service
 
-import com.rufree.dobi.api.client.kakao.dto.response.KakaoUserResponse
+import com.rufree.dobi.common.client.kakao.dto.response.KakaoUserResponse
 import com.rufree.dobi.api.utils.KakaoAccountUtils
 import com.rufree.dobi.common.entity.User
 import com.rufree.dobi.common.entity.enums.AuthorityName
@@ -21,9 +21,9 @@ class UserAuthService(
     fun kakaoJoin(response: KakaoUserResponse): User {
         return createUser(
             providerId = response.id,
-            email = response.kakaoAccount.email,
-            nickname = response.properties.nickname,
-            profileImage = response.properties.profileImage,
+            email = response.kakaoAccount.email ?: "",
+            nickname = response.properties.nickname ?: "",
+            profileImage = response.properties.profileImage ?: "",
             socialType = SocialType.KAKAO
         )
     }

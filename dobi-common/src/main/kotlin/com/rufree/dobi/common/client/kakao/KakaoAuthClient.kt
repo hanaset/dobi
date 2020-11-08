@@ -1,7 +1,7 @@
-package com.rufree.dobi.api.client.kakao
+package com.rufree.dobi.common.client.kakao
 
-import com.rufree.dobi.api.client.AbstractClient
-import com.rufree.dobi.api.client.kakao.dto.response.KakaoTokenResponse
+import com.rufree.dobi.common.client.AbstractClient
+import com.rufree.dobi.common.client.kakao.dto.response.KakaoTokenResponse
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
@@ -34,5 +34,9 @@ class KakaoAuthClient(
 
     fun token(redirectUri: String, code: String): Response<KakaoTokenResponse> {
         return isSuccessful(kakaoAuthClientService.token(clientId = clientId, redirectUri = redirectUri, code = code, clientSecret = clientSecret), "KakaoAuthClientService::token", logger)
+    }
+
+    fun refreshToken(refreshToken: String): Response<KakaoTokenResponse> {
+        return isSuccessful(kakaoAuthClientService.refreshToken(clientId = clientId, refreshToken = refreshToken, clientSecret = clientSecret), "KakaoAuthClientService::refreshToken", logger)
     }
 }

@@ -1,7 +1,7 @@
 package com.rufree.dobi.api.service
 
-import com.rufree.dobi.api.client.kakao.KakaoAuthClient
-import com.rufree.dobi.api.client.kakao.KakaoClient
+import com.rufree.dobi.common.client.kakao.KakaoAuthClient
+import com.rufree.dobi.common.client.kakao.KakaoClient
 import com.rufree.dobi.api.exception.DobiApiException
 import com.rufree.dobi.api.exception.ErrorCode
 import com.rufree.dobi.api.rest.dto.request.SigninRequest
@@ -18,13 +18,14 @@ import org.springframework.stereotype.Service
 
 @Service
 class KakaoAuthService(
-    private val kakaoAuthClient: KakaoAuthClient,
-    private val kakaoClient: KakaoClient,
-    private val userAuthService: UserAuthService,
-    private val userRepository: UserRepository,
-    private val userDetailsService: UserDetailsService,
-    private val authenticationManager: AuthenticationManager,
-    private val jwtTokenUtils: JwtTokenUtils
+        private val kakaoAuthClient: KakaoAuthClient,
+        private val kakaoClient: KakaoClient,
+        private val userAuthService: UserAuthService,
+        private val userRepository: UserRepository,
+        private val userDetailsService: UserDetailsService,
+        private val authenticationManager: AuthenticationManager,
+        private val jwtTokenUtils: JwtTokenUtils,
+        private val kakaoTokenService: KakaoTokenService
 ) {
 
     fun kakaoSignIn(request: SigninRequest): SignInResponse {
@@ -39,6 +40,8 @@ class KakaoAuthService(
         // 회원가입 여부 확인 후, null일 경우 회원가입
         val user = userRepository.findByProviderIdAndSocialTypeAndActive(providerId = kakaoRes.id.toString(), socialType = SocialType.KAKAO)
                 ?: userAuthService.kakaoJoin(kakaoRes)
+
+        kakaoTokenService.tokenSaveOrUpdate(user.id, tokenResult.body()!!.accessToken, tokenResult.body()!!.refreshToken)
 
         val authentication = authenticationManager.authenticate(UsernamePasswordAuthenticationToken(KakaoAccountUtils.getUsernameByKakaoAccount(kakaoRes.id), KakaoAccountUtils.getPasswordByKakaoAccount(kakaoRes.id)))
         val userDetails = userDetailsService.loadUserByUsername(user.username)

@@ -1,5 +1,6 @@
 package com.rufree.dobi.common.entity
 
+import com.rufree.dobi.common.entity.enums.AlarmStatus
 import com.rufree.dobi.common.entity.enums.EventItemStatus
 import java.time.LocalDateTime
 import javax.persistence.*
@@ -18,7 +19,11 @@ class EventItem(
         val image: String,
 
         @Enumerated(value = EnumType.STRING)
-        val status: EventItemStatus = EventItemStatus.COMING_SOON,
+        var status: EventItemStatus = EventItemStatus.COMING_SOON,
+
+        @Column(name = "alarm_status")
+        @Enumerated(value = EnumType.STRING)
+        var alarmStatus: AlarmStatus = AlarmStatus.BEFORE,
 
         @Column(name = "apply_date")
         val applyDate: LocalDateTime

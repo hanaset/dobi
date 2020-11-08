@@ -1,4 +1,4 @@
-package com.rufree.dobi.api.client
+package com.rufree.dobi.common.client
 
 import org.slf4j.Logger
 import retrofit2.Call

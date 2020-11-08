@@ -10,9 +10,11 @@ import org.springframework.boot.info.BuildProperties
 import org.springframework.context.ApplicationListener
 import org.springframework.context.annotation.Import
 import org.springframework.core.env.Environment
+import org.springframework.scheduling.annotation.EnableScheduling
 import java.util.*
 import javax.annotation.PostConstruct
 
+@EnableScheduling
 @SpringBootApplication(scanBasePackages = [
     "com.rufree.dobi.common.*",
     "com.rufree.dobi.runner.*"

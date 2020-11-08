@@ -24,7 +24,8 @@ class KakaoBackendSigninController(
 
     @GetMapping("/api/v1/kakao/backend/signin")
     fun kakaoBackendSignPage(): ResponseEntity<*> {
-        val redirectUrl = "https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=http://localhost:5000/api/v1/kakao/backend/signin/callback&response_type=code"
+        val scope = "talk_message,profile,account_email"
+        val redirectUrl = "https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=http://localhost:5000/api/v1/kakao/backend/signin/callback&response_type=code&scope=${scope}"
         val uri = URI(redirectUrl)
         val headers = HttpHeaders()
         headers.location = uri
