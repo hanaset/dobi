@@ -26,6 +26,9 @@ dependencies {
     // jackson
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
+    // discord
+    implementation ("com.discord4j:discord4j-core:3.1.1")
+
     implementation("com.google.apis:google-api-services-people:v1-rev20201013-1.30.10")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
