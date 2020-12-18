@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import java.time.LocalDateTime
 import java.time.ZonedDateTime
 import javax.persistence.Column
 import javax.persistence.EntityListeners
@@ -21,10 +22,10 @@ abstract class AbstractBaseAuditEntity {
     @CreatedDate
     @Column(name = "created_at", columnDefinition = "datetime default CURRENT_TIMESTAMP")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS", timezone = "Asia/Seoul")
-    var createdAt: ZonedDateTime = ZonedDateTime.now()
+    var createdAt: LocalDateTime = LocalDateTime.now()
 
     @LastModifiedDate
     @Column(name = "updated_at", columnDefinition = "datetime default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS", timezone = "Asia/Seoul")
-    var updatedAt: ZonedDateTime = ZonedDateTime.now()
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 }

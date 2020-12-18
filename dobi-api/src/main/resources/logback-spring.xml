@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <springProfile name="local">
+        <include resource="logback-base.xml"/>
+        <root level="DEBUG">
+            <appender-ref ref="STDOUT"/>
+
+            <appender-ref ref="debug_log"/>
+            <appender-ref ref="info_log"/>
+            <appender-ref ref="error_log"/>
+            <appender-ref ref="trace_log"/>
+        </root>
+
+        <logger name="com.rufree.dobi.api" level="DEBUG">
+            <appender-ref ref="application_log"/>
+        </logger>
+
+        <logger name="reqRes_log" level="INFO" additivity="false">
+            <appender-ref ref="reqRes_log"/>
+        </logger>
+
+        <logger name="slow_query_log" level="INFO" additivity="false">
+            <appender-ref ref="slow_query_log"/>
+        </logger>
+
+        <logger name="org.hibernate.SQL" level="DEBUG">
+            <appender-ref ref="query_log"/>
+        </logger>
+    </springProfile>
+
+    <springProfile name="devlocal">
+        <include resource="logback-base.xml"/>
+        <root level="DEBUG">
+            <appender-ref ref="STDOUT"/>
+
+            <appender-ref ref="debug_log"/>
+            <appender-ref ref="info_log"/>
+            <appender-ref ref="error_log"/>
+            <appender-ref ref="trace_log"/>
+        </root>
+
+        <logger name="com.rufree.dobi.api" level="DEBUG">
+            <appender-ref ref="application_log"/>
+        </logger>
+
+        <logger name="reqRes_log" level="INFO" additivity="false">
+            <appender-ref ref="reqRes_log"/>
+        </logger>
+
+        <logger name="slow_query_log" level="INFO" additivity="false">
+            <appender-ref ref="slow_query_log"/>
+        </logger>
+
+        <logger name="org.hibernate.SQL" level="DEBUG">
+            <appender-ref ref="query_log"/>
+        </logger>
+    </springProfile>
+
+    <springProfile name="develop">
+        <include resource="logback-base.xml"/>
+        <root level="DEBUG">
+            <appender-ref ref="STDOUT"/>
+
+            <appender-ref ref="info_log"/>
+            <appender-ref ref="error_log"/>
+        </root>
+
+        <logger name="com.rufree.dobi.api" level="DEBUG">
+            <appender-ref ref="application_log"/>
+        </logger>
+
+        <logger name="reqRes_log" level="INFO" additivity="false">
+            <appender-ref ref="reqRes_log"/>
+        </logger>
+
+        <logger name="slow_query_log" level="INFO" additivity="false">
+            <appender-ref ref="slow_query_log"/>
+        </logger>
+
+        <logger name="org.hibernate.SQL" level="DEBUG">
+            <appender-ref ref="query_log"/>
+        </logger>
+    </springProfile>
+
+
+    <springProfile name="production">
+        <include resource="logback-base.xml"/>
+        <root level="DEBUG">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="info_log"/>
+            <appender-ref ref="error_log"/>
+<!--            <appender-ref ref="debug_log"/>-->
+        </root>
+
+        <logger name="com.rufree.dobi.api" level="INFO">
+            <appender-ref ref="application_log"/>
+        </logger>
+
+        <logger name="reqRes_log" level="INFO" additivity="false">
+            <appender-ref ref="reqRes_log"/>
+        </logger>
+
+        <logger name="slow_query_log" level="INFO" additivity="false">
+            <appender-ref ref="slow_query_log"/>
+        </logger>
+
+        <!--<logger name="org.hibernate.SQL" level="DEBUG">-->
+        <!--<appender-ref ref="query_log"/>-->
+        <!--</logger>-->
+    </springProfile>
+
+</configuration>

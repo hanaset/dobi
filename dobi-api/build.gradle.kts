@@ -15,21 +15,17 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-cache:2.3.4.RELEASE")
     implementation("javax.cache:cache-api:1.1.1")
 
-    implementation ("org.springframework.boot:spring-boot-starter-security")
-
     // jsoup
     implementation("org.jsoup:jsoup:1.13.1")
-
-    // JWT Token
-    implementation ("io.jsonwebtoken:jjwt:0.9.1")
 
     // jackson
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-    // discord
-    implementation ("com.discord4j:discord4j-core:3.1.1")
+    // Telegram BOT API
+    implementation("org.telegram:telegrambots:5.2.0")
 
-    implementation("com.google.apis:google-api-services-people:v1-rev20201013-1.30.10")
+    // Html Simulater
+    implementation("net.sourceforge.htmlunit:htmlunit:2.52.0")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -37,7 +33,6 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
-    testImplementation ("org.springframework.security:spring-security-test")
 }
 
 springBoot.buildInfo { properties { } }

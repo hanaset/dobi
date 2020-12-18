@@ -29,27 +29,27 @@ class SwaggerConfig(
         logger.debug("Starting Swagger...")
 
         return Docket(DocumentationType.SWAGGER_2)
-                .enable(true)
-                .useDefaultResponseMessages(false)
-                .ignoredParameterTypes(
-                        WebSession::class.java,
-                        ServerHttpRequest::class.java,
-                        ServerHttpResponse::class.java,
-                        ServerWebExchange::class.java
-                )
-                .apiInfo(apiInfo())
-                .genericModelSubstitutes(
-                        Optional::class.java,
-                        ResponseEntity::class.java
-                )
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.rufree.dobi.api.rest"))
-                .paths(PathSelectors.regex("/api/.*"))
-                .build()
+            .enable(true)
+            .useDefaultResponseMessages(false)
+            .ignoredParameterTypes(
+                WebSession::class.java,
+                ServerHttpRequest::class.java,
+                ServerHttpResponse::class.java,
+                ServerWebExchange::class.java
+            )
+            .apiInfo(apiInfo())
+            .genericModelSubstitutes(
+                Optional::class.java,
+                ResponseEntity::class.java
+            )
+            .select()
+            .apis(RequestHandlerSelectors.basePackage("com.rufree.dobi.api.rest"))
+            .paths(PathSelectors.any())
+            .build()
     }
 
     private fun apiInfo() = ApiInfoBuilder()
-            .title(buildProperties.name)
-            .version(buildProperties.version)
-            .build()
+        .title(buildProperties.name)
+        .version(buildProperties.version)
+        .build()
 }
