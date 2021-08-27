@@ -1,5 +1,3 @@
 # Nike Draw Alarm
 
-### Spring boot + Security + Jwt + Kakao Social Login
-
-코틀린, 스프링 부트, 시큐리티, Jwt Token을 이용한 카카오 소셜 로그인 구현
+### Telegram Bot을 이용한 Nike Draw Alarm 서비스 & 자동응모
