@@ -43,7 +43,7 @@ class TestController(
             nikeApplyService.applyPersonal(
                 id,
                 pwd,
-                "/launch/t/men/fw/nike-sportswear/DC3041-002/xqti31/nike-overbreak"
+                "/account"
             )
         )
     }

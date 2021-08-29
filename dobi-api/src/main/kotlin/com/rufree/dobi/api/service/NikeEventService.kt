@@ -7,13 +7,14 @@ import com.rufree.dobi.common.entity.enums.EventItemStatus
 import com.rufree.dobi.common.repository.EventItemRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Service
 class NikeEventService(
-        private val eventItemRepository: EventItemRepository,
-        private val telegramService: TelegramService
+    private val eventItemRepository: EventItemRepository,
+    private val telegramService: TelegramService
 ) {
 
     private val logger = LoggerFactory.getLogger(NikeEventService::class.java)
@@ -41,6 +42,32 @@ class NikeEventService(
         }
         eventItemRepository.saveAll(items)
 
+    }
+
+    fun dailyMorningAlarm() {
+        val items = eventItemRepository.findByStatus(EventItemStatus.COMING_SOON)
+            .filter { it.applyDate.toLocalDate() == LocalDate.now() }
+        val messageList = items.mapIndexed { index, eventItemEntity ->
+            "${index + 1}. ${eventItemEntity.name} : ${eventItemEntity.applyDate.format(DateTimeFormatter.ofPattern("HH:mm"))}"
+        }
+        val message =
+            "<b>오늘은 ${items.size}개의 드로우 이벤트가 있습니다.</b>\n" +
+            "${messageList.joinToString("\n")}"
+
+        telegramService.saveMessage(TelegramChat.ALARM_GROUP, message)
+    }
+
+    fun dailyEveningAlarm() {
+        val items = eventItemRepository.findByStatus(EventItemStatus.COMING_SOON)
+            .filter { it.applyDate.toLocalDate() == LocalDate.now().plusDays(1) }
+        val messageList = items.mapIndexed { index, eventItemEntity ->
+            "${index + 1}. ${eventItemEntity.name} : ${eventItemEntity.applyDate.format(DateTimeFormatter.ofPattern("HH:mm"))}"
+        }
+        val message =
+            "<b>내일은 ${items.size}개의 드로우 이벤트가 있습니다.</b>\n" +
+            "${messageList.joinToString("\n")}"
+
+        telegramService.saveMessage(TelegramChat.ALARM_GROUP, message)
     }
 
     private fun makeApplyText(entity: EventItemEntity): String {
