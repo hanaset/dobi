@@ -51,7 +51,7 @@ class NikeApplyService(
         val idInput: HtmlTextInput = page.getFirstByXPath("//*[@id=\"j_username\"]")
         val pwdInput: HtmlPasswordInput = page.getFirstByXPath("//*[@id=\"j_password\"]")
         val loginButton: HtmlButton =
-            page.getFirstByXPath("/html/body/section/section/div[2]/div/div[2]/div/div[2]/div/button")
+            page.getFirstByXPath("/html/body/section/section/div/div/div[2]/div/div[2]/div/button")
 
         idInput.text = id
         pwdInput.text = password
@@ -80,61 +80,61 @@ class NikeApplyService(
         webClient.close()
     }
 
-    fun test2(id: String, password: String, successUrl: String) {
-
-        val webClient = NikeWebClientFactory.getWebClient()
-        val page: HtmlPage = webClient.getPage("${baseUrl}/ko_kr/login?successUrl=${successUrl}")
-
-        val idInput: HtmlTextInput = page.getFirstByXPath("//*[@id=\"j_username\"]")
-        val pwdInput: HtmlPasswordInput = page.getFirstByXPath("//*[@id=\"j_password\"]")
-        val loginButton: HtmlButton =
-            page.getFirstByXPath("/html/body/section/section/div[2]/div/div[2]/div/div[2]/div/button")
-
-        idInput.text = id
-        pwdInput.text = password
-
-        val myPage: HtmlPage = loginButton.click()
-
-//        val agreeCheckBox: HtmlSpan = myPage.getFirstByXPath("/html/body/section/section/article[2]/div/div[2]/div/div/div[1]/div/div/form/div[5]/div/span")
-//        val myPage2: HtmlPage = agreeCheckBox.click()
-        val checkBox: HtmlInput = myPage.getFirstByXPath("//*[@id=\"receiveEmail\"]")
-        checkBox.isChecked = false
-        val button: HtmlButton = myPage.getFirstByXPath("/html/body/section/section/article[2]/div/div[2]/div/div/div[3]/div/button")
-        val appliedPage: HtmlPage = button.click()
-
-        println(appliedPage.asXml())
-        // 응모 버튼 클릭 추가
-        webClient.close()
-
-    }
-
-    fun test(id: String, password: String, successUrl: String) {
-
-        val webClient = NikeWebClientFactory.getWebClient()
-        val page: HtmlPage = webClient.getPage("${baseUrl}/ko_kr/login?successUrl=${successUrl}")
-
-        val idInput: HtmlTextInput = page.getFirstByXPath("//*[@id=\"j_username\"]")
-        val pwdInput: HtmlPasswordInput = page.getFirstByXPath("//*[@id=\"j_password\"]")
-        val loginButton: HtmlButton =
-            page.getFirstByXPath("/html/body/section/section/div[2]/div/div[2]/div/div[2]/div/button")
-
-        idInput.text = id
-        pwdInput.text = password
-
-        val productPage: HtmlPage = loginButton.click()
-
-        val sizeInput: HtmlInput =
-            productPage.getFirstByXPath("/html/body/div[1]/div/div[1]/div[2]/div[1]/section/div[2]/aside/div[2]/div/div/div/div/form/div/input")
-        sizeInput.setAttribute("value", "235")
-        val sizeList: HtmlSelect = productPage.getFirstByXPath("//*[@id=\"selectSize\"]")
-        val options = sizeList.options
-        val selectedPage: HtmlPage = sizeList.setSelectedAttribute(options[2], true)
-
-        val button: HtmlAnchor = selectedPage.getFirstByXPath("//*[@id=\"btn-buy\"]")
-        val appliedPage: HtmlPage = button.click()
-
-        println(appliedPage.asXml())
-        // 응모 버튼 클릭 추가
-        webClient.close()
-    }
+//    fun test2(id: String, password: String, successUrl: String) {
+//
+//        val webClient = NikeWebClientFactory.getWebClient()
+//        val page: HtmlPage = webClient.getPage("${baseUrl}/ko_kr/login?successUrl=${successUrl}")
+//
+//        val idInput: HtmlTextInput = page.getFirstByXPath("//*[@id=\"j_username\"]")
+//        val pwdInput: HtmlPasswordInput = page.getFirstByXPath("//*[@id=\"j_password\"]")
+//        val loginButton: HtmlButton =
+//            page.getFirstByXPath("/html/body/section/section/div[2]/div/div[2]/div/div[2]/div/button")
+//
+//        idInput.text = id
+//        pwdInput.text = password
+//
+//        val myPage: HtmlPage = loginButton.click()
+//
+////        val agreeCheckBox: HtmlSpan = myPage.getFirstByXPath("/html/body/section/section/article[2]/div/div[2]/div/div/div[1]/div/div/form/div[5]/div/span")
+////        val myPage2: HtmlPage = agreeCheckBox.click()
+//        val checkBox: HtmlInput = myPage.getFirstByXPath("//*[@id=\"receiveEmail\"]")
+//        checkBox.isChecked = false
+//        val button: HtmlButton = myPage.getFirstByXPath("/html/body/section/section/article[2]/div/div[2]/div/div/div[3]/div/button")
+//        val appliedPage: HtmlPage = button.click()
+//
+//        println(appliedPage.asXml())
+//        // 응모 버튼 클릭 추가
+//        webClient.close()
+//
+//    }
+//
+//    fun test(id: String, password: String, successUrl: String) {
+//
+//        val webClient = NikeWebClientFactory.getWebClient()
+//        val page: HtmlPage = webClient.getPage("${baseUrl}/ko_kr/login?successUrl=${successUrl}")
+//
+//        val idInput: HtmlTextInput = page.getFirstByXPath("//*[@id=\"j_username\"]")
+//        val pwdInput: HtmlPasswordInput = page.getFirstByXPath("//*[@id=\"j_password\"]")
+//        val loginButton: HtmlButton =
+//            page.getFirstByXPath("/html/body/section/section/div[2]/div/div[2]/div/div[2]/div/button")
+//
+//        idInput.text = id
+//        pwdInput.text = password
+//
+//        val productPage: HtmlPage = loginButton.click()
+//
+//        val sizeInput: HtmlInput =
+//            productPage.getFirstByXPath("/html/body/div[1]/div/div[1]/div[2]/div[1]/section/div[2]/aside/div[2]/div/div/div/div/form/div/input")
+//        sizeInput.setAttribute("value", "235")
+//        val sizeList: HtmlSelect = productPage.getFirstByXPath("//*[@id=\"selectSize\"]")
+//        val options = sizeList.options
+//        val selectedPage: HtmlPage = sizeList.setSelectedAttribute(options[2], true)
+//
+//        val button: HtmlAnchor = selectedPage.getFirstByXPath("//*[@id=\"btn-buy\"]")
+//        val appliedPage: HtmlPage = button.click()
+//
+//        println(appliedPage.asXml())
+//        // 응모 버튼 클릭 추가
+//        webClient.close()
+//    }
 }

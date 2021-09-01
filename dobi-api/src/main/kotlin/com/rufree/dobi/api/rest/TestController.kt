@@ -29,7 +29,7 @@ class TestController(
 
     @GetMapping("/checking")
     fun checking(): ResponseEntity<*> {
-        nikeEventService.checkApplying()
+        nikeEventService.dailyEveningAlarm()
         return response("ok")
     }
 
@@ -40,11 +40,7 @@ class TestController(
     ): ResponseEntity<*> {
 
         return response(
-            nikeApplyService.applyPersonal(
-                id,
-                pwd,
-                "/account"
-            )
+            nikeApplyService.apply()
         )
     }
 }
