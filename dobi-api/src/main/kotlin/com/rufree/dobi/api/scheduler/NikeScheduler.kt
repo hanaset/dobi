@@ -57,7 +57,7 @@ class NikeScheduler(
     }
 
     // 5분에 한번씩 접수 스케줄러 활성화
-    @Scheduled(initialDelay = 1000 * 3, fixedDelay = 1000 * 60 * 5)
+    @Scheduled(initialDelay = 1000 * 3, fixedDelay = 1000 * 60)
     fun apply() {
         logger.debug("========== Nike apply() Start ====================")
         nikeApplyService.apply()

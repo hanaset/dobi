@@ -2,15 +2,11 @@ package com.rufree.dobi.api.service
 
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor
 import com.gargoylesoftware.htmlunit.html.HtmlButton
-import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput
 import com.gargoylesoftware.htmlunit.html.HtmlInput
-import com.gargoylesoftware.htmlunit.html.HtmlItalic
 import com.gargoylesoftware.htmlunit.html.HtmlPage
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput
 import com.gargoylesoftware.htmlunit.html.HtmlSelect
-import com.gargoylesoftware.htmlunit.html.HtmlSpan
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput
-import com.gargoylesoftware.htmlunit.javascript.host.event.Event
 import com.rufree.dobi.api.client.NikeWebClientFactory
 import com.rufree.dobi.common.entity.EventHistoryEntity
 import com.rufree.dobi.common.entity.enums.EventHistoryStatus
@@ -33,14 +29,25 @@ class NikeApplyService(
         val eventItemList = eventItemRepository.findByStatus(EventItemStatus.APPLYING)
         val userList = userRepository.findByEnable()
         eventItemList.forEach { item ->
-            val url = item.url.replace(baseUrl, "")
-            userList.filter { user ->
-                eventHistoryRepository.findByUserIdAndEventIdAndStatus(userId = user.id, eventId = item.id, status = EventHistoryStatus.APPLIED) == null
-            }.
-            forEach { user ->
-                applyPersonal(user.email, user.password, url)
-                eventHistoryRepository.save(EventHistoryEntity(userId = user.id, eventId = item.id, status = EventHistoryStatus.APPLIED))
-            }
+            Thread {
+                val url = item.url.replace(baseUrl, "")
+                userList.filter { user ->
+                    eventHistoryRepository.findByUserIdAndEventIdAndStatus(
+                        userId = user.id,
+                        eventId = item.id,
+                        status = EventHistoryStatus.APPLIED
+                    ) == null
+                }.forEach { user ->
+                    applyPersonal(user.email, user.password, url)
+                    eventHistoryRepository.save(
+                        EventHistoryEntity(
+                            userId = user.id,
+                            eventId = item.id,
+                            status = EventHistoryStatus.APPLIED
+                        )
+                    )
+                }
+            }.start()
         }
     }
 
@@ -67,7 +74,9 @@ class NikeApplyService(
         val sizeList: HtmlSelect = productPage.getFirstByXPath("//*[@id=\"selectSize\"]")
 
         // Option 선택
-        val option = sizeList.options.find { it.getAttribute("data-value") == "265" || it.getAttribute("data-value") == "240" } ?: sizeList.getOption(3)
+        val option =
+            sizeList.options.find { it.getAttribute("data-value") == "265" || it.getAttribute("data-value") == "240" }
+                ?: sizeList.getOption(3)
 
         // 선택한 옵션으로 Form 데이터 채움
         sizeInput.setAttribute("value", option.getAttribute("data-skuid"))
